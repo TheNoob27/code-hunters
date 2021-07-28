@@ -14,5 +14,6 @@ export default (function code(message, args, { respond }) {
     .toString()
     .padStart(2, "0")
   bot.profit += Math.floor(Math.random() * 10)
+  bot.save(["profit"])
   return respond(`Successfully spawned in a bot: ${bot.user}!`)
 }) as Command["run"]

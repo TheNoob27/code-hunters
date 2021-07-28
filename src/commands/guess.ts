@@ -10,12 +10,27 @@ export default (function code(message, [code], { respond }) {
   const holders = this.client.players.cache.filter(p => p.code === code)
   holders.each(p => this.client.players.cache.delete(p.id))
   return respond(
-    `Successfully guessed the code of ${holders.size === 1 ? "a player" : `${holders.size} players`} - ${holders
-      .array()
-      .map(p => p.user)
-      .join(", ")}! ${holders.size > 1 ? "Altogether they" : "They"} give you ${holders
-      .reduce((n, p) => p.bounty + n, 0)
-      .toCurrency()}!`
+    holders.has(player.id)
+      ? `You just guessed your own code, GG. ${
+          holders.size > 1
+            ? `You also guessed the code of ${holders
+                .filter(p => p.id !== player.id)
+                .map(p => p.user)
+                .join(", ")}. `
+            : ""
+        }Now the economy has lost ${holders.reduce((n, p) => p.bounty + n, 0).toCurrency()}. `
+      : `Successfully guessed the code of ${holders.size === 1 ? "a player" : `${holders.size} players`} - ${holders
+          .map(p => p.user)
+          .join(", ")}! ${holders.size > 1 ? "Altogether they" : "They"} give you ${holders
+          .reduce((n, p) => p.bounty + n, 0)
+          .toCurrency()}! ${
+          player.streak >= 3
+            ? `For guessing codes correct ${player.streak} times in a row, you earn an extra ${(
+                10 *
+                (player.streak - 3)
+              ).toCurrency()}!`
+            : ""
+        }`
   )
 }) as Command["run"]
 

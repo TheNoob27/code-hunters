@@ -23,6 +23,9 @@ class Player {
     this.user = user
     if (data.code) this._code = data.code
     if (data.createdTimestamp) this.createdTimestamp = data.createdTimestamp
+    if (data.profit) this.profit = data.profit
+    if (data.streak) this.streak = data.streak
+    if (data.guessed) this.guessed = data.guessed
   }
 
   get code() {
@@ -33,7 +36,8 @@ class Player {
     this._code = v
     const data: Optional<PlayerData> = { code: v }
     if (!this.createdTimestamp) data.createdTimestamp = this.createdTimestamp = Date.now()
-    if (!this.user.bot) this.client.db.update(this.id, data)
+    // if (!this.user.bot)
+    this.client.db.update(this.id, data)
   }
 
   get ready(): boolean {
@@ -60,21 +64,24 @@ class Player {
       return false
     }
     if (++this.streak >= 3) this.profit += 10 * (this.streak - 3)
-    holders.each(holder => holder.end(this))
     this.profit += holders.reduce((n, h) => n + h.bounty, 0)
     this.guessed += holders.size
     this.save(["profit", "streak", "guessed"])
+    holders.each(holder => holder.end(this))
     return true
   }
 
   end(guesser: Player) {
     this.endTimestamp = Date.now()
     this.client.db.delete(this.id)
-    this.user.send(`Your code got guessed by ${guesser.user}! You had a bounty of ${this.bounty.toCurrency()}, well done!`).silence()
+    if (!this.user.bot && guesser.user !== this.user)
+      this.user
+        .send(`Your code got guessed by ${guesser.user}! You had a bounty of ${this.bounty.toCurrency()}, well done!`)
+        .silence()
   }
 
   save(keys: (keyof Player)[]) {
-    if (this.user.bot) return
+    // if (this.user.bot) return
     this.client.db.update(this.user, Object.assign({}, ...keys.map(k => ({ [k]: this[k] }))))
   }
 }

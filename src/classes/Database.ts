@@ -51,14 +51,19 @@ class Database {
   
   update(user: UserResolvable, data: Optional<Omit<PlayerData, "userID">>): PlayerData {
     const id = this.client.users.resolveId(user)!
-    console.log("updating", id, data)
+    console.log("updating", id, data.code ? {...data, code: undefined} : data)
     this.db.prepare(`UPDATE players SET ${Object.keys(data).map(k => `${k} = @${k}`)} WHERE userID = ?`).run(data, id)
     if (!this.cache.has(id)) return this.fetchPlayer(id)!
     return Object.assign(this.cache.get(id), data)
   }
   
   delete(id: string): void {
-    this.db.prepare("DELETE FROM players WHERE userID = ?").run(id)
+    console.log("deleting", id)
+    this.db.prepare(`UPDATE players SET code = NULL, createdTimestamp = NULL, profit = NULL, streak = NULL, guessed = NULL WHERE userID = ?`).run(id)
+    // this.update(id as Snowflake, {
+    //   code: null,
+    // })
+    this.cache.delete(id)
   }
 }
 
