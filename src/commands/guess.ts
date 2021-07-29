@@ -27,7 +27,7 @@ export default (function code(message, [code], { respond }) {
           player.streak >= 3
             ? `For guessing codes correct ${player.streak} times in a row, you earn an extra ${(
                 10 *
-                (player.streak - 3)
+                (player.streak - 2)
               ).toCurrency()}!`
             : ""
         }`

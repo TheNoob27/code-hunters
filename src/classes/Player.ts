@@ -63,7 +63,7 @@ class Player {
       this.save(["profit", "streak"])
       return false
     }
-    if (++this.streak >= 3) this.profit += 10 * (this.streak - 3)
+    if (++this.streak >= 3) this.profit += 10 * (this.streak - 2)
     this.profit += holders.reduce((n, h) => n + h.bounty, 0)
     this.guessed += holders.size
     this.save(["profit", "streak", "guessed"])
