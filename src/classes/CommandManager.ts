@@ -33,8 +33,8 @@ class CommandManager extends Collection<string, Command> {
     commands.forEach(c => {
       const name = c.slice(0, -3)
       console.log("loading", name)
-      const run = require(`../commands/${c}`).default
-      this.set(name, { client: this.client, name, run, checkReady: run.checkReady || false })
+      const { default: run, checkReady = false } = require(`../commands/${c}`)
+      this.set(name, { client: this.client, name, run, checkReady })
     })
     console.log("loaded", commands.length, "commands")
   }
@@ -42,8 +42,8 @@ class CommandManager extends Collection<string, Command> {
   reload(name: string) {
     try {
       delete require.cache[require.resolve(`../commands/${name}`)]
-      const run = require(`../commands/${name}`)
-      this.set(name, { client: this.client, name, run, checkReady: run.checkReady || false })
+      const { default: run, checkReady = false } = require(`../commands/${name}`)
+      this.set(name, { client: this.client, name, run, checkReady })
       return true
     } catch {
       return false
