@@ -18,7 +18,7 @@ export default (function code(message, [code], { respond }) {
                 .map(p => p.user)
                 .join(", ")}. `
             : ""
-        }Now the economy has lost ${holders.reduce((n, p) => p.bounty + n, 0).toCurrency()}. `
+        }Now the economy has lost ${holders.reduce((n, p) => (p.id === player.id ? p.bounty / 2 : p.bounty) + n, 0).toCurrency()}. `
       : `Successfully guessed the code of ${holders.size === 1 ? "a player" : `${holders.size} players`} - ${holders
           .map(p => p.user)
           .join(", ")}! ${holders.size > 1 ? "Altogether they" : "They"} give you ${holders
