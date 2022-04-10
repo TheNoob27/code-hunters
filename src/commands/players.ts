@@ -1,8 +1,8 @@
-import { Command } from "../classes/CommandManager";
+import { Command } from "../classes/CommandManager"
 
-export default (function code(message, args, { respond }) {
+export default (function (message, args, { respond }) {
   return respond(
-    `There are ${this.client.players.cache.size} players with ${
+    `There are ${this.client.players.cache.size} players including ${
       this.client.players.cache.filter(p => p.user.bot).size
     } bots.`
   )

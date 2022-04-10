@@ -66,7 +66,7 @@ client.on("interactionCreate", interaction => {
       respond: (content: string | { ack: true }, options?: { hidden: boolean }) => {
         console.log("replying")
         if (typeof content !== "string") {
-          return content.ack && interaction.defer()
+          return content.ack && interaction.deferReply()
         }
         // if (interaction.deferred) interaction.re
         return interaction.reply({ content, ephemeral: options?.hidden })

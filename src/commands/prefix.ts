@@ -1,6 +1,6 @@
-import { Command } from "../classes/CommandManager";
+import { Command } from "../classes/CommandManager"
 
-export default (function code(message, args, { respond }) {
+export default (function (message, args, { respond }) {
   const prefix = args.join(" ") === "none" ? "" : args.join(" ")
   const { prefix: p } = this.client.db.fetchPlayer(message.author)!
   if (!args.length) return respond(`Your prefix is \`${p || " "}\`.`)

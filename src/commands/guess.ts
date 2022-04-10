@@ -1,6 +1,6 @@
-import { Command } from "../classes/CommandManager";
+import { Command } from "../classes/CommandManager"
 
-export default (function code(message, [code], { respond }) {
+export default (function (message, [code], { respond }) {
   const player = this.client.players.resolve(message.author)
   if (!code) return respond("Please provide a code.", { hidden: true })
   code = code.padStart(2, "0")
@@ -18,7 +18,7 @@ export default (function code(message, [code], { respond }) {
                 .map(p => p.user)
                 .join(", ")}. `
             : ""
-        }Now the economy has lost ${holders.reduce((n, p) => (p.id === player.id ? p.bounty / 2 : p.bounty) + n, 0).toCurrency()}. `
+        }Now the economy has lost ${player.bounty.toCurrency()}. `
       : `Successfully guessed the code of ${holders.size === 1 ? "a player" : `${holders.size} players`} - ${holders
           .map(p => p.user)
           .join(", ")}! ${holders.size > 1 ? "Altogether they" : "They"} give you ${holders

@@ -210,7 +210,6 @@ Object.defineProperty(process.hrtime, "format", {
   configurable: true,
 })
 
-// const { words } = require("lodash")
 Object.defineProperties(String.prototype, {
   stripIndents: {
     value: function (tabSize: number | undefined) {
@@ -231,8 +230,8 @@ Object.defineProperties(String.prototype, {
   },
   words: {
     value: function () {
-      // return words(this, pattern)
-      return this.split(/[\s]+/)
+      // pretty useless function lmao wtf
+      return this.split(/\s+/)
     },
     writable: true,
     configurable: true,

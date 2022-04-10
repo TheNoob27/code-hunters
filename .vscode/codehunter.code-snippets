@@ -10,7 +10,7 @@
 	// 	"scope": "javascript,typescript",
 	// 	"prefix": "log",
 	// 	"body": [
-	// 		"console.log('$1');",
+	// 		"console.log('$1')",
 	// 		"$2"
 	// 	],
 	// 	"description": "Log output to console"
@@ -19,9 +19,9 @@
 		"scope": "typescript",
 		"prefix": "cmd",
 		"body": [
-			"import { Command } from \"../classes/CommandManager\";",
+			"import { Command } from \"../classes/CommandManager\"",
 			"",
-			"export default (function code(message, args, { respond }) {",
+			"export default (function (message, args, { respond }) {",
 			"  const player = this.client.players.resolve(message.author)",
 			"  $1",
 			"}) as Command[\"run\"]"

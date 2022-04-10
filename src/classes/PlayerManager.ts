@@ -1,5 +1,5 @@
-import { Client, Collection, Snowflake, User } from "discord.js";
-import Player from "./Player";
+import { Client, Collection, Snowflake, User } from "discord.js"
+import Player from "./Player"
 
 class PlayerManager {
   cache = new Collection<string, Player>()

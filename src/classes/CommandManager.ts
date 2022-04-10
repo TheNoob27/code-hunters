@@ -1,6 +1,6 @@
-import { Client, Collection, Message } from "discord.js";
+import { Client, Collection, Message } from "discord.js"
 import { readdirSync } from "fs"
-import { join as resolvePath } from "path";
+import { join as resolvePath } from "path"
 
 declare module "discord.js" {
   interface Client {

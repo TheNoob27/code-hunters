@@ -1,6 +1,6 @@
 import Sqlite, { Database as SqliteDatabase } from "better-sqlite3"
 import { resolve as resolvePath } from "path"
-import { Client, Collection, UserResolvable, Snowflake } from "discord.js";
+import { Client, Collection, UserResolvable, Snowflake } from "discord.js"
 
 declare module "discord.js" {
   interface Client {

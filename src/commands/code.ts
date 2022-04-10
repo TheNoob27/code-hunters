@@ -1,9 +1,9 @@
 import { Snowflake } from "discord-api-types"
 import { Command } from "../classes/CommandManager"
 
-// i'm lazy, let's use existing methods to confirm
+// i'm lazy, let's use existing commands to confirm
 const confirming: Snowflake[] = []
-export default (async function code(message, [newCode], { respond, isSlash }) {
+export default (async function (message, [newCode], { respond, isSlash }) {
   if (!isSlash) return
   const player = this.client.players.resolve(message.author)
   newCode = newCode?.padStart(2, "0")

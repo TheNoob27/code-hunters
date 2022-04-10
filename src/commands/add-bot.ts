@@ -1,6 +1,6 @@
-import { Command } from "../classes/CommandManager";
+import { Command } from "../classes/CommandManager"
 
-export default (function code(message, args, { respond }) {
+export default (function (message, args, { respond }) {
   const player = this.client.players.resolve(message.author)
   if (player.bounty < 100)
     return respond("It costs $100 to add a bot and you don't have a bounty of $100 yet!", { hidden: true })

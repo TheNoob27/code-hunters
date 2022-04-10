@@ -1,7 +1,7 @@
-import { Snowflake } from "discord.js";
-import { Command } from "../classes/CommandManager";
+import { Snowflake } from "discord.js"
+import { Command } from "../classes/CommandManager"
 
-export default (async function code(message, [userID, money], { respond }) {
+export default (async function (message, [userID, money], { respond }) {
   if (message.author.id !== "342421078066593803") return
   const user = await this.client.users.fetch(userID as Snowflake).silence()
   if (!user) return respond("Couldn't find that user.")
