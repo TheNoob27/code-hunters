@@ -10,7 +10,8 @@ class PlayerManager {
     console.log("fetching", list.length, "players")
     for (const data of list) {
       // console.log(data.userID, data)
-      const user = await this.client.users.fetch(data.userID)
+      const user = await this.client.users.fetch(data.userID).silence()
+      if (!user) continue
       this.cache.set(user.id, new Player(user, data))
     }
   }

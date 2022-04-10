@@ -2,7 +2,7 @@ import { Command } from "../classes/CommandManager";
 
 export default (function code(message, args, { respond }) {
   const player = this.client.players.resolve(message.author)
-  const ordered = this.client.players.cache.array().sort((a, b) => b.bounty - a.bounty)
+  const ordered = this.client.players.cache.array().filter(p => p.ready).sort((a, b) => b.bounty - a.bounty)
   const list = ordered.first(10)
   const place = ordered.indexOf(player) + 1
   return respond(`

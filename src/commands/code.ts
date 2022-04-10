@@ -40,5 +40,5 @@ export default (async function code(message, [newCode], { respond, isSlash }) {
   }
   if (confirming.includes(message.author.id))
     return confirming.remove(message.author.id), respond(`Your code change request has been cancelled.`)
-  return respond(`Your code is \`${player.code}\`.`, { hidden: true })
+  return respond(player.code ? `Your code is \`${player.code}\`.` : "You don't have a code yet. Set your code with `/code [code]`.", { hidden: true })
 } as Command["run"])

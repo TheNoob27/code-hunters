@@ -17,3 +17,5 @@ export default (function code(message, args, { respond }) {
   bot.save(["profit"])
   return respond(`Successfully spawned in a bot: ${bot.user}!`)
 }) as Command["run"]
+
+export const checkReady = true
