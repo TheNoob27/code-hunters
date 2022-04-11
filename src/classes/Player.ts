@@ -64,7 +64,7 @@ class Player {
       return false
     }
     if (++this.streak >= 3) this.profit += 10 * (this.streak - 2)
-    this.profit += holders.reduce((n, h) => n + h.bounty, 0)
+    this.profit += holders.reduce((n, h) => n + h.bounty, holders.has(this.id) ? -this.bounty : 0)
     this.guessed += holders.size
     this.save(["profit", "streak", "guessed"])
     holders.each(holder => holder.end(this))

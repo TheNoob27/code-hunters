@@ -10,7 +10,7 @@ export default (function (message, args, { respond }) {
   player.save(["profit"])
   const bot = this.client.players.resolve(bots.random()!)
   // bots are temporary and die per restart
-  bot.code = Math.round(Math.random() * 100)
+  bot.code = Math.floor(Math.random() * 100)
     .toString()
     .padStart(2, "0")
   bot.profit += Math.floor(Math.random() * 10)

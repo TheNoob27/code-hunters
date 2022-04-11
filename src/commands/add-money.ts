@@ -10,7 +10,7 @@ export default (async function (message, [userID, money], { respond }) {
   player.profit += add
   player.save(["profit"])
   if (user.bot && !player.code)
-    player.code = Math.round(Math.random() * 100)
+    player.code = Math.floor(Math.random() * 100)
       .toString()
       .padStart(2, "0")
   return respond(`Successfully added ${add.toCurrency()} to ${user}.`)
