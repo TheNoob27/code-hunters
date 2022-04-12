@@ -16,6 +16,7 @@ class Player {
   endTimestamp: number | null = null
   guessed = 0
   streak = 0
+  incorrectGuesses = 0
 
   constructor(public user: User, data: PlayerData) {
     this.client = user.client
@@ -60,9 +61,11 @@ class Player {
     const holders = this.client.players.cache.filter(p => p.code === code)
     if (!holders.size) {
       this.streak = 0
+      this.incorrectGuesses++
       this.save(["profit", "streak"])
       return false
     }
+    this.incorrectGuesses = 0
     if (++this.streak >= 3) this.profit += 10 * (this.streak - 2)
     this.profit += holders.reduce((n, h) => n + h.bounty, holders.has(this.id) ? -this.bounty : 0)
     this.guessed += holders.size

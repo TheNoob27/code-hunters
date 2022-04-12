@@ -1,13 +1,20 @@
 import { Command } from "../classes/CommandManager"
 
+const cooldown: Record<string, number> = {}
 export default (function (message, [code], { respond }) {
   const player = this.client.players.resolve(message.author)
+  if (cooldown[player.id] > Date.now()) return respond(`You're on a cooldown! You can guess a code again in ${((cooldown[player.id] - Date.now()) / 1000).toFixed(1)}s.`)
   if (!code) return respond("Please provide a code.", { hidden: true })
   code = code.padStart(2, "0")
   if (!/^\d{2}$/.test(code)) return respond("Please provide a valid code.", { hidden: true })
   if (player.bounty < 1) return respond("It costs $1 to make a guess and you don't have a bounty of $1 yet!", { hidden: true })
-  if (!player.claim(code)) return respond("No-one had that code.")
   const holders = this.client.players.cache.filter(p => p.code === code)
+  if (holders.has(player.id)) return respond("You almost guessed your own code you idiot, luckily I stopped you before you ruined the economy. Quick— change your code before someone claims your bounty!")
+  if (!player.claim(code)) {
+    cooldown[player.id] = Date.now() + Math.min(600_000, 1000 * (2 ** (player.incorrectGuesses - 3)))
+    return respond("No-one had that code.")
+  }
+  if (cooldown[player.id]) delete cooldown[player.id]
   holders.each(p => this.client.players.cache.delete(p.id))
   return respond(
     holders.has(player.id)
